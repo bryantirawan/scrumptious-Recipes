@@ -5,6 +5,7 @@ from recipes.views import (
     change_recipe,
     show_recipe,
     show_recipes,
+    log_rating,
 )
 
 urlpatterns = [
@@ -12,4 +13,5 @@ urlpatterns = [
     path("<int:pk>/", show_recipe, name="recipe_detail"),
     path("new/", create_recipe, name="recipe_new"),
     path("edit/", change_recipe, name="recipe_edit"),
+    path("<int:recipe_id>/ratings/", log_rating, name="recipe_rating"),
 ]

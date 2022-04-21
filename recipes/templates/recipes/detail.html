@@ -37,6 +37,11 @@
       Created on {{ recipe.created }} |
       Updated on {{ recipe.updated }}
     </p>
+    <form method="post" action="{% url 'recipe_rating' recipe.id %}">
+      {% csrf_token %}
+      {{ rating_form.as_p }}
+      <button class="button">Rate</button>
+  </form>
     <p>Tags: {% for tag in recipe.tags.all %}{{ tag.word }} {% endfor %}</p>
     {{ recipe.description | markdownify }}
     <h2>Ingredients</h2>
@@ -48,7 +53,7 @@
         </tr>
       </thead>
       <tbody>
-        {% for ingredient in recipe.ingredients.all %}
+        {% for ingredient in recipe.ingredient.all %}
           <tr>
             <td>{{ ingredient.amount }}</td>
             <td>{{ ingredient.measure.name }}</td>

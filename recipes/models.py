@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 class Recipe(models.Model):
@@ -30,10 +30,15 @@ class FoodItem(models.Model):
 
 
 class Ingredient(models.Model):
-    amount = models.FloatField()
+    amount = models.PositiveSmallIntegerField(
+        validators=[
+            MaxValueValidator(20),
+            MinValueValidator(1),
+        ]
+    )
     recipe = models.ForeignKey(
         "Recipe",
-        related_name="ingredients",
+        related_name="ingredient",
         on_delete=models.CASCADE,
     )
     measure = models.ForeignKey("Measure", on_delete=models.PROTECT)
@@ -55,3 +60,20 @@ class Step(models.Model):
 
     def __str__(self):
         return str(self.order) + ". " + self.directions
+
+
+class Rating(models.Model):
+    value = models.PositiveSmallIntegerField(
+        validators=[
+            MaxValueValidator(5),
+            MinValueValidator(1),
+        ]
+    )
+    recipe = models.ForeignKey(
+        "Recipe",
+        related_name="recipe_ratings",
+        on_delete=models.CASCADE,
+    )
+
+    def __str__(self):
+        return "rating " + str(self.value)
