@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
+from django.urls import reverse_lazy
 
 from recipes.forms import RatingForm
 
@@ -11,20 +12,27 @@ except Exception:
     Recipe = None
 
 
-def create_recipe(request):
-    if request.method == "POST" and RecipeForm:
-        form = RecipeForm(request.POST)
-        if form.is_valid():
-            recipe = form.save()
-            return redirect("recipe_detail", pk=recipe.pk)
-    elif RecipeForm:
-        form = RecipeForm()
-    else:
-        form = None
-    context = {
-        "form": form,
-    }
-    return render(request, "recipes/new.html", context)
+# def create_recipe(request):
+#     if request.method == "POST" and RecipeForm:
+#         form = RecipeForm(request.POST)
+#         if form.is_valid():
+#             recipe = form.save()
+#             return redirect("recipe_detail", pk=recipe.pk)
+#     elif RecipeForm:
+#         form = RecipeForm()
+#     else:
+#         form = None
+#     context = {
+#         "form": form,
+#     }
+#     return render(request, "recipes/new.html", context)
+
+
+class RecipeCreateView(CreateView):
+    model = Recipe
+    template_name = "recipes/new.html"
+    fields = ["name", "author", "description", "image"]
+    success_url = reverse_lazy("recipes_list")
 
 
 def change_recipe(request, pk):
