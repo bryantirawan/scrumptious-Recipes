@@ -29,6 +29,9 @@
     </nav>
   </header>
   <main class="recipe-detail">
+    <div> 
+      <a href="{% url 'recipe_edit' recipe.id %}">Edit</a>
+    </div>
     {% if recipe.image %}
       <img src="{{ recipe.image }}" class="pull-right">
     {% endif %}
