@@ -1,5 +1,13 @@
+from ast import Delete
+from audioop import reverse
 from django.shortcuts import redirect, render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
 from django.urls import reverse_lazy
 
 from recipes.forms import RatingForm
@@ -98,3 +106,9 @@ def log_rating(request, recipe_id):
             rating.recipe = Recipe.objects.get(pk=recipe_id)
             rating.save()
     return redirect("recipe_detail", pk=recipe_id)
+
+
+class RecipeDeleteView(DeleteView):
+    model = Recipe
+    template_name = "recipes/delete.html"
+    success_url = reverse_lazy("recipes_list")
