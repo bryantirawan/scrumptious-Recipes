@@ -16,6 +16,7 @@ try:
 except Exception:
     pass
 
+
 from recipes.models import Rating
 
 

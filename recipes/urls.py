@@ -3,9 +3,9 @@ from django.urls import path
 from recipes.views import (
     create_recipe,
     change_recipe,
+    log_rating,
     show_recipe,
     show_recipes,
-    log_rating,
 )
 
 urlpatterns = [
