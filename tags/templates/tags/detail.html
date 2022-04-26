@@ -1,0 +1,52 @@
+{% load static %}
+{% load markdownify %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Recipe - Scrumptious</title>
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+
+<body>
+  <header>
+    <nav>
+        <ul>
+            <li>
+                <a href="{% url 'home' %}">Scrumptious</a>
+              </li>
+              <li>
+                <a href="{% url 'admin:index' %}">Admin</a>
+              </li>
+              <li>
+                <a href="{% url 'recipe_new' %}">Write a recipe</a>
+              </li>
+              <li>
+                <a href="{% url 'tag_new' %}">Write a tag</a>
+              </li>
+              <li>
+                <a href="/recipes">Recipes</a>
+              </li>
+              <li>
+                <a href="/tags">Tags</a>
+              </li>
+          </ul>
+    </nav>
+  </header>
+  <main class="recipe-detail">
+    <div>
+      <a href="{% url 'tag_edit' tags.id %}">Edit</a>
+      <a href="{% url 'tag_delete' tags.id %}">Delete</a> 
+    </div> 
+
+    <h1>{{ tags.name }}</h1>
+    <p class="recipe-card-date">{{ tags.recipes.all|join:", " }}</p>
+    
+  </main>
+</body>
+
+</html>

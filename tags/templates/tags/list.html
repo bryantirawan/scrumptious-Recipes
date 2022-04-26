@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,10 +7,58 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tags - Scrumptious</title>
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
 </head>
 
 <body>
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <a href="{% url 'home' %}">Scrumptious</a>
+        </li>
+        <li>
+          <a href="{% url 'admin:index' %}">Admin</a>
+        </li>
+        <li>
+          <a href="{% url 'recipe_new' %}">Write a recipe</a>
+        </li>
+        <li>
+          <a href="{% url 'tag_new' %}">Write a tag</a>
+        </li>
+        <li>
+          <a href="/recipes">Recipes</a>
+        </li>
+        <li>
+          <a href="/tags">Tags</a>
+        </li>
+      </ul>
+    </nav> 
+  </header>
+<main class="recipe-grid">
+  {% for tag in tags %}  
+    <div class="recipe-card">
+      <h2 class="recipe-card-title">
+        <a href="{% url 'tag_detail' tag.pk %}"> {{ tag.name }} </a>
+      </h2>
+      <p class="recipe-card-date">{{ tag.recipes.all|join:", " }}</p>
+    </div>
+  {% endfor %}
+</main>
 
+  <footer>
+    <span>
+      {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+      <span>
+        Page {{ page_obj.number }} of {{page_obj.paginator.num_pages }}
+      </span>
+      {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}">Next</a>
+      {% endif %}
+    </span>
+  </footer>
 </body>
 
 </html>
