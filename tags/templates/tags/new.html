@@ -16,23 +16,17 @@
     <nav>
       <ul>
         <li>
-            <a href="{% url 'home' %}">Scrumptious</a>
-          </li>
-          <li>
-            <a href="{% url 'admin:index' %}">Admin</a>
-          </li>
-          <li>
-            <a href="{% url 'recipe_new' %}">Write a recipe</a>
-          </li>
-          <li>
-            <a href="{% url 'tag_new' %}">Write a tag</a>
-          </li>
-          <li>
-            <a href="/recipes">Recipes</a>
-          </li>
-          <li>
-            <a href="/tags">Tags</a>
-          </li>
+          <a href="{% url 'home' %}">Scrumptious</a>
+        </li>
+        <li>
+          <a href="{% url 'tags_list' %}">Tags</a>
+        </li>
+        <li>
+          <a href="{% url 'admin:index' %}">Admin</a>
+        </li>
+        <li>
+          <a href="{% url 'recipe_new' %}">Write a recipe</a>
+        </li>
       </ul>
     </nav>
   </header>

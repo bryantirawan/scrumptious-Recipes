@@ -20,20 +20,15 @@
           <a href="{% url 'home' %}">Scrumptious</a>
         </li>
         <li>
+          <a href="{% url 'tags_list' %}">Tags</a>
+        </li>
+        <li>
           <a href="{% url 'admin:index' %}">Admin</a>
         </li>
         <li>
           <a href="{% url 'recipe_new' %}">Write a recipe</a>
         </li>
-        <li>
-          <a href="{% url 'tag_new' %}">Write a tag</a>
-        </li>
-        <li>
-          <a href="/recipes">Recipes</a>
-        </li>
-        <li>
-          <a href="/tags">Tags</a>
-        </li>
+      </ul>
     </nav>
   </header>
   <main class="recipe-detail">
@@ -51,8 +46,10 @@
     </p>
     <form method="post" action="{% url 'recipe_rating' recipe.id %}">
       {% csrf_token %}
-      {{ rating_form.as_p }}
-      <button class="button">Rate</button>
+      <div class="rating-form-grid">
+        {{ rating_form.as_p }}
+        <button class="button">Rate</button>
+      </div>
     </form>
     <p>Tags: {% for tag in recipe.tags.all %}{{ tag.word }} {% endfor %}</p>
     {{ recipe.description | markdownify }}

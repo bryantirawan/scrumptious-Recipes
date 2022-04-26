@@ -19,22 +19,33 @@
           <a href="{% url 'home' %}">Scrumptious</a>
         </li>
         <li>
+          <a href="{% url 'tags_list' %}">Tags</a>
+        </li>
+        <li>
           <a href="{% url 'admin:index' %}">Admin</a>
         </li>
         <li>
           <a href="{% url 'recipe_new' %}">Write a recipe</a>
         </li>
-        <li>
-          <a href="{% url 'tag_new' %}">Write a tag</a>
-        </li>
-        <li>
-          <a href="/recipes">Recipes</a>
-        </li>
-        <li>
-          <a href="/tags">Tags</a>
-        </li>
       </ul>
     </nav>
+    <div class="pagination">
+      <span class="step-links">
+        {% if page_obj.has_previous %}
+          <a href="?page=1">&laquo; first</a>
+          <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}">next</a>
+          <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+      </span>
+    </div>
   </header>
   <main class="recipe-grid">
     {% for recipe in recipe_list %}
@@ -46,19 +57,6 @@
       </div>
     {% endfor %}
   </main>
-  <footer>
-      <span>
-        {% if page_obj.has_previous %}
-        <a href=">page={{ page_obj.previous_page_number }}">Previous</a>
-        {% endif %}
-        <span>
-          Page {{ page_obj.number }} of {{page_obj.paginator.num_pages }}
-        </span>
-        {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">Next</a>
-        {% endif %}
-      </span>
-  </footer>
 </body>
 
 </html>
