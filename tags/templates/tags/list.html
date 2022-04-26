@@ -1,7 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'paginate.html' %}
 
 
-{% block pagination %}
+{% comment %} {% block pagination %}
   <div class="pagination">
     <span class="step-links">
       {% if page_obj.has_previous %}
@@ -19,7 +19,7 @@
       {% endif %}
     </span>
   </div>
-{% endblock pagination %}
+{% endblock pagination %} {% endcomment %}
 
 
 {% block content %}
