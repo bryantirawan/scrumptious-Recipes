@@ -7,6 +7,7 @@
       <a href="{% url 'tag_delete' tag.id %}">Delete</a>
     </div>
     <h2>Recipes for {{ tag.name }}</h2>
+    <h2>Tag written by {{ tag.author }}</h2>
     {% for recipe in tag.recipes.all %}
       <p>
         <a href="{% url 'recipe_detail' recipe.pk %}">{{ recipe.name }}</a>

@@ -3,7 +3,10 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+from django.conf import settings
 
+USER_MODEL = settings.AUTH_USER_MODEL
 
 from tags.models import Tag
 
@@ -17,6 +20,7 @@ class TagListView(ListView):
 
 class TagDetailView(DetailView):
     model = Tag
+    auther = User
     template_name = "tags/detail.html"
 
 
@@ -25,6 +29,10 @@ class TagCreateView(LoginRequiredMixin, CreateView):
     template_name = "tags/new.html"
     fields = ["name"]
     success_url = reverse_lazy("tags_list")
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
 class TagUpdateView(LoginRequiredMixin, UpdateView):

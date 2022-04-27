@@ -1,0 +1,28 @@
+{% extends 'paginate.html' %}
+
+{% block content %}
+  <main class="recipe-grid">
+    <div>
+      <p>
+     <a href="{% url 'mealplan_new' %}">Create New Meal Plan</a>
+      </p>
+  </div>
+    {% for mealplan in mealplans %}
+      <div class="recipe-card">
+        <h2 class="recipe-card-title">
+          <a href="{% url 'mealplan_detail' mealplan.pk %}">  
+              {{ mealplan.name }}
+          </a> 
+        </h2>
+        <p class="recipe-card-date">{{ recipe.updated }}</p>
+      </div>
+      {% for mealplanrecipes in mealplans.recipes.all %}
+      <p>
+        <a href="{% url 'recipe_detail' recipe.pk %}">{{ mealplanrecipes.name }}</a> 
+      </p>
+      {% endfor %} 
+
+
+    {% endfor %}
+  </main>
+  {% endblock content %}
