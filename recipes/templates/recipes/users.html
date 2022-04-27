@@ -5,15 +5,17 @@
   <main class="recipe-grid">
     {% for user in users %}
       <div class="recipe-card">
-        <h2 class="recipe-card-title">
-        <h2>Recipes written by {{ user }}</h2> 
-        </h2>
+        <ul>
+        <h2 class="recipe-card-title">Recipes written by {{ user }}</h2>
       </div>
+     
       {% for recipe in user.recipes.all %}
-      <p>
+      <li>
         <a href="{% url 'recipe_detail' recipe.pk %}">{{ recipe }}</a>
-      </p>
+      </li>
+    
       {% endfor %}
+    </ul>
     {% endfor %}
 </main>
 <main class="recipe-grid">
@@ -29,5 +31,5 @@
     </p>
     {% endfor %}
   {% endfor %}
-</main>
+</main> 
 {% endblock content %}

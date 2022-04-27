@@ -14,15 +14,17 @@
               {{ mealplan.name }}
           </a> 
         </h2>
-        <p class="recipe-card-date">{{ recipe.updated }}</p>
+        <p>{{ mealplan.date }}</p>
+        <ul>
+          {% for mealplanrecipe in mealplan.recipes.all %}
+        <li>
+          <a href="{% url 'recipe_detail' mealplanrecipe.pk %}">
+          {{ mealplanrecipe }}
+          </a>
+        </li>
+        {% endfor %}
+        </ul>
       </div>
-      {% for mealplanrecipes in mealplans.recipes.all %}
-      <p>
-        <a href="{% url 'recipe_detail' recipe.pk %}">{{ mealplanrecipes.name }}</a> 
-      </p>
-      {% endfor %} 
-
-
     {% endfor %}
   </main>
   {% endblock content %}
