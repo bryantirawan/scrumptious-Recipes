@@ -19,6 +19,7 @@
     {% endfor %}
 </main>
 <main class="recipe-grid">
+  <ul>
     {% for user in users %}
     <div class="recipe-card">
       <h2 class="recipe-card-title">
@@ -26,10 +27,11 @@
       </h2>
     </div>
     {% for recipe in user.recipeseditedby.all %}
-    <p>
+    <li>
       <a href="{% url 'recipe_detail' recipe.pk %}">{{ recipe }}</a>
-    </p>
+    </li>
     {% endfor %}
   {% endfor %}
+  </ul>
 </main> 
 {% endblock content %}
