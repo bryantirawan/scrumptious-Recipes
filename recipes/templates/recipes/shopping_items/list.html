@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load markdownify %}
+{% block content %}
+  <main class="tag-detail">
+    <div>
+      {% comment %} <a href="{% url 'mealplan_delete' mealplans.id %}">Delete All</a>  {% endcomment %}
+    </div>
+    <h2>Your Shopping List: </h2>
+    <ul>
+        {% for item in shoppingitem_list %}
+        <li> 
+            {{ item }}
+        </li>
+        {% endfor %}
+    </ul> 
+  <h1>
+    <form method="Post" action="{% url 'shopping_item_delete' %}"> 
+      {% csrf_token %}
+      <button>Clear Shopping List</button> 
+    </form> 
+  </h1> 
+  </td> 
+
+
+  </main>
+
+  {% endblock content %}

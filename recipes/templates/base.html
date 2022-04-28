@@ -50,6 +50,11 @@
         <a href="{% url 'mealplans_list' %}">Meal Plans</a>
      </li>  
      {% endif %}
+     {% if user.is_authenticated %}
+     <li>
+       <a href="{% url 'shopping_items' %}">Shopping List ({{ user.shopping_items.all|length }})</a>
+    </li>  
+    {% endif %}
       </ul>
     </nav>
     {% block pagination %}

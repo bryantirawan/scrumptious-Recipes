@@ -1,6 +1,8 @@
 from django.db import models
+from django.shortcuts import redirect
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.conf import settings
+
 
 USER_MODEL = settings.AUTH_USER_MODEL
 
@@ -24,6 +26,19 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.name + " by " + str(self.author)
+
+
+class ShoppingItem(models.Model):
+    user = models.ForeignKey(
+        USER_MODEL, related_name="shopping_items", on_delete=models.CASCADE
+    )
+    food_item = models.ForeignKey("FoodItem", on_delete=models.PROTECT)
+
+    def get_queryset(self):
+        return ShoppingItem.objects.filter(user=self.request.user)
+
+    def __str__(self):
+        return str(self.food_item) + " for " + str(self.user)
 
 
 class Measure(models.Model):

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load markdownify %}
+{% block content %}
+  <main class="tag-detail">
+    <div>
+      {% comment %} <a href="{% url 'mealplan_delete' mealplans.id %}">Delete All</a>  {% endcomment %}
+    </div>
+    <h2>Your Shopping List: </h2>
+    <ul>
+        {% for item in shoppingitems %}
+        <li> 
+            {{ item.name }}
+        </li>
+    </ul> 
+  </main>
+  {% endfor %}
+  {% endblock content %}

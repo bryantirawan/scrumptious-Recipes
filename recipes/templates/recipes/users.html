@@ -4,10 +4,13 @@
 {% block content %}
   <main class="recipe-grid">
     {% for user in users %}
+      {%if user.recipes.all %}
+
       <div class="recipe-card">
         <ul>
-        <h2 class="recipe-card-title">Recipes written by {{ user }}</h2>
+        <h2 class="recipe-card-title">Recipes written by {{ user }}</h2> 
       </div>
+        {% endif %}
      
       {% for recipe in user.recipes.all %}
       <li>
