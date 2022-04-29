@@ -6,7 +6,7 @@ from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from django.contrib.auth.models import User
-from recipes.forms import RatingForm
+from recipes.forms import RatingForm, ServingForm
 from django.views.decorators.http import require_http_methods
 from psycopg2 import IntegrityError
 
@@ -52,6 +52,8 @@ class RecipeDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context["rating_form"] = RatingForm()
 
+        context["servings"] = self.request.GET.get("servings")
+
         user_shoppinglist = []
         for item in self.request.user.shopping_items.all():
             user_shoppinglist.append(item.food_item)
@@ -66,7 +68,7 @@ class RecipeDetailView(DetailView):
 class RecipeCreateView(LoginRequiredMixin, CreateView):
     model = Recipe
     template_name = "recipes/new.html"
-    fields = ["name", "description", "image"]
+    fields = ["name", "servings", "ßdescription", "image"]
     success_url = reverse_lazy("recipes_list")
 
     def form_valid(self, form):
@@ -77,7 +79,7 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
 class RecipeUpdateView(LoginRequiredMixin, UpdateView):
     model = Recipe
     template_name = "recipes/edit.html"
-    fields = ["name", "description", "image"]
+    fields = ["name", "servings", "description", "image"]
     success_url = reverse_lazy("recipes_list")
 
     def form_valid(self, form):

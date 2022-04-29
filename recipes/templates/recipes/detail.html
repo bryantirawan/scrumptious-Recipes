@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% load markdownify %}
+{% load markdownify %} 
+{% load resizer %}
 
 {% block content %}
   <main class="recipe-detail">
@@ -14,8 +15,19 @@
     <h2>by: {{ recipe.author | default_if_none:"Unknown" }}</h2>
     <p>
       Created on {{ recipe.created }} |
-      Updated on {{ recipe.updated }}
+      Updated on {{ recipe.updated }}  | 
+      {% if recipe.servings %}
+      Serves {{ recipe.servings }}
+
     </p>
+    <form method="get">
+      {% csrf_token %}
+      <div class="rating-form-grid"> 
+        <input required type="number" name="servings">
+        <button class="button">Resize</button>
+      </div> 
+    </form> 
+    {% endif %}
     <form method="post" action="{% url 'recipe_rating' recipe.id %}">
       {% csrf_token %}
       <div class="rating-form-grid">
@@ -36,7 +48,8 @@
       <tbody>
         {% for ingredient in recipe.ingredients.all %}
           <tr>
-            <td>{{ ingredient.amount }}</td>
+    
+            <td>{{ ingredient|resize_to:servings }}</td>
             <td>{{ ingredient.measure.name }}</td>
             <td>{{ ingredient.food.name }}</td>
           
@@ -52,9 +65,6 @@
               {% endif %}
 
             </td> 
-  
-          
-          
           </tr>
 
 

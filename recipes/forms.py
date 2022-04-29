@@ -22,3 +22,9 @@ class RatingForm(forms.ModelForm):
     class Meta:
         model = Rating
         fields = ["value"]
+
+
+class ServingForm(forms.ModelForm):
+    class Meta:
+        model = Recipe
+        fields = ["servings"]

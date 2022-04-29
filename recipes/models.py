@@ -23,9 +23,30 @@ class Recipe(models.Model):
         on_delete=models.CASCADE,
         null=True,
     )
+    servings = models.PositiveSmallIntegerField(
+        validators=[
+            MaxValueValidator(5),
+            MinValueValidator(1),
+        ],
+        null=True,
+    )
 
     def __str__(self):
         return self.name + " by " + str(self.author)
+
+
+class Rating(models.Model):
+    value = models.PositiveSmallIntegerField(
+        validators=[
+            MaxValueValidator(5),
+            MinValueValidator(1),
+        ]
+    )
+    recipe = models.ForeignKey(
+        "Recipe",
+        related_name="ratings",
+        on_delete=models.CASCADE,
+    )
 
 
 class ShoppingItem(models.Model):
@@ -85,17 +106,3 @@ class Step(models.Model):
 
     def __str__(self):
         return str(self.order) + ". " + self.directions
-
-
-class Rating(models.Model):
-    value = models.PositiveSmallIntegerField(
-        validators=[
-            MaxValueValidator(5),
-            MinValueValidator(1),
-        ]
-    )
-    recipe = models.ForeignKey(
-        "Recipe",
-        related_name="ratings",
-        on_delete=models.CASCADE,
-    )
